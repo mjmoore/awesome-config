@@ -18,6 +18,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+local apw = require("apw/widget")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -169,6 +171,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
+	    apw,
             mytextclock,
             s.mylayoutbox,
         },
@@ -282,7 +285,13 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+
+
+    -- Media keys
+    awful.key({ }, "XF86AudioRaiseVolume",  apw.Up),
+    awful.key({ }, "XF86AudioLowerVolume",  apw.Down),
+    awful.key({ }, "XF86AudioMute",         apw.ToggleMute)
 )
 
 clientkeys = gears.table.join(
